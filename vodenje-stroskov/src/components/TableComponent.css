@@ -1,0 +1,81 @@
+/* src/components/CostTracking/CostTracking.css */
+
+.cost-tracking {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    max-width: 90%; /* Adjusted width for alignment */
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    margin-left: 460px; /* Margin to prevent overlapping with sidebar */
+}
+
+    .cost-tracking h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+.cost-table {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+}
+
+    .cost-table th,
+    .cost-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .cost-table th {
+        background-color: #4CAF50;
+        color: #ffffff;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    .cost-table td {
+        color: #555;
+        vertical-align: middle;
+    }
+
+    .cost-table tr:hover {
+        background-color: #f7f7f7;
+    }
+
+    .cost-table td {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .cost-table .long-text {
+        max-width: 200px;
+        white-space: normal;
+        overflow: hidden;
+    }
+
+@media (max-width: 768px) {
+    .cost-tracking {
+        margin-left: 0; /* Reset margin on smaller screens */
+        padding: 10px;
+    }
+
+        .cost-tracking h2 {
+            font-size: 20px;
+        }
+
+    .cost-table th, .cost-table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .cost-table {
+        min-width: 600px;
+    }
+}
