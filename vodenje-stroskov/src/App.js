@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import SideBar from './components/Sidebar.jsx';
 
 function App() {
   return (
@@ -8,7 +9,12 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
-        </p>
+              </p>
+
+
+
+              <SideBar></SideBar>
+
         <a
           className="App-link"
           href="https://reactjs.org"
