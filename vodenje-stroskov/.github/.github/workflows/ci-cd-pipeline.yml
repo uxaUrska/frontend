@@ -1,0 +1,74 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main # Triggers on pushes to the main branch
+  pull_request:
+    branches:
+      - main # Triggers on pull requests to the main branch
+
+jobs:
+  # Frontend testing job
+  frontend-tests:
+    name: Frontend Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Run tests
+        working-directory: ./frontend
+        run: npm test
+
+  # Backend testing job
+  backend-tests:
+    name: Backend Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        working-directory: ./backend
+        run: npm install
+
+      - name: Run tests
+        working-directory: ./backend
+        run: npm test
+
+  # Optional deployment job
+  deploy:
+    name: Deploy Application
+    needs: [frontend-tests, backend-tests] # Runs only if both tests succeed
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Deploy Frontend
+        working-directory: ./frontend
+        run: |
+          echo "Deploying frontend..."
+          # Add deployment commands here, e.g., Netlify, AWS, or S3
+
+      - name: Deploy Backend
+        working-directory: ./backend
+        run: |
+          echo "Deploying backend..."
+          # Add deployment commands here, e.g., Docker, AWS, or Heroku
