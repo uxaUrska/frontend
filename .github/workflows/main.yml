@@ -1,29 +1,54 @@
-name: Run React Tests
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
-      - main
+      - main # Triggers on pushes to the main branch
   pull_request:
     branches:
-      - main
+      - main # Triggers on pull requests to the main branch
 
 jobs:
-  test:
+  # Frontend testing job
+  frontend-tests:
+    name: Frontend Testing
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '16'
 
       - name: Install dependencies
-        run: npm install
-        working-directory: vodenje-stroskov
+        working-directory: ./frontend
+        run: npm ci
 
-      - name: Run tests
-        run: npm test
-        working-directory: vodenje-stroskov
+      - name: Run tests and generate coverage report
+        working-directory: ./frontend
+        run: |
+          npm test -- --watchAll=false --coverage
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-coverage
+          path: ./frontend/coverage
+
+  # Optional deployment job
+  deploy:
+    name: Deploy Application
+    needs: [frontend-tests] # Runs only if frontend tests succeed
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Deploy Frontend
+        working-directory: ./frontend
+        run: |
+          echo "Deploying frontend..."
+          # Add deployment commands here, e.g., Netlify, AWS, or S3
