@@ -22,8 +22,8 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./frontend/vodenje-stroskov
+        working-directory: vodenje-stroskov
 
       - name: Run tests
         run: npm test
-        working-directory: ./frontend/vodenje-stroskov
+        working-directory: vodenje-stroskov
