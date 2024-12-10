@@ -24,16 +24,23 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./frontend
-        run: npm install
+        run: npm ci
 
-      - name: Run tests
+      - name: Run tests and generate coverage report
         working-directory: ./frontend
-        run: npm test
+        run: |
+          npm test -- --coverage
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-coverage
+          path: ./frontend/coverage
 
   # Optional deployment job
   deploy:
     name: Deploy Application
-    needs: [frontend-tests] # Runs only if both tests succeed
+    needs: [frontend-tests] # Runs only if frontend tests succeed
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
