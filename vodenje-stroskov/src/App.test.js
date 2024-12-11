@@ -4,7 +4,6 @@ import App from './App';
 import Sidebar from './components/Sidebar';
 import TableComponent from './components/CostTracking';
 import Login from './components/Login';
-import axios from 'axios';
 
 // Test 1: Existing test (might fail if "Dobrodošli" isn't rendered)
 test('renders the application without crashing', () => {
@@ -121,3 +120,100 @@ test('CostTracking container has correct border radius', () => {
 
 //dodatna funkcionalnost
 
+describe('Login Component', () => {
+  test('renders the login form correctly', () => {
+    render(<Login />);
+    const usernameField = screen.getByLabelText(/Username/i);
+    const passwordField = screen.getByLabelText(/Password/i);
+
+    expect(usernameField).toBeInTheDocument();
+    expect(passwordField).toBeInTheDocument();
+  });
+
+
+  test('password field is hidden (type="password")', () => {
+    render(<Login />); // Assuming Login is correctly imported
+
+    // Locate the password field
+    const passwordField = screen.getByLabelText(/Password/i);
+
+    // Verify its type is "password"
+    expect(passwordField).toHaveAttribute('type', 'password');
+  });
+
+  test('username input field is of type text', () => {
+    render(<Login />);
+
+    // Locate the username input field
+    const usernameField = screen.getByLabelText(/Username/i);
+
+    // Verify its type is "text"
+    expect(usernameField).toHaveAttribute('type', 'text');
+  });
+
+  // test('does not show error message when fields are filled', async () => {
+  //   render(<Login />);
+
+  //   const usernameField = screen.getByLabelText(/Username/i);
+  //   const passwordField = screen.getByLabelText(/Password/i);
+  //   const submitButton = screen.getByRole('button', { name: /Login/i });
+
+  //   await act(async () => {
+  //     fireEvent.change(usernameField, { target: { value: 'testuser' } });
+  //     fireEvent.change(passwordField, { target: { value: 'password123' } });
+  //     fireEvent.click(submitButton);
+  //   });
+
+  //   expect(screen.queryByText(/All fields are required/i)).toBeNull();
+  // });
+
+  // test('handles login failure and displays error message', async () => {
+  //   global.fetch = jest.fn(() =>
+  //     Promise.resolve({
+  //       ok: false,
+  //       json: () => Promise.resolve({ message: 'Invalid credentials' }),
+  //     })
+  //   );
+
+  //   render(<Login />);
+
+  //   const usernameField = screen.getByLabelText(/Username/i);
+  //   const passwordField = screen.getByLabelText(/Password/i);
+  //   const submitButton = screen.getByRole('button', { name: /Login/i });
+
+  //   await act(async () => {
+  //     fireEvent.change(usernameField, { target: { value: 'wronguser' } });
+  //     fireEvent.change(passwordField, { target: { value: 'wrongpass' } });
+  //     fireEvent.click(submitButton);
+  //   });
+
+  //   expect(await screen.findByText(/Invalid credentials/i)).toBeInTheDocument();
+  // });
+
+  // test('handles successful login', async () => {
+  //   global.fetch = jest.fn(() =>
+  //     Promise.resolve({
+  //       ok: true,
+  //       json: () => Promise.resolve({ token: 'fake-token' }),
+  //     })
+  //   );
+
+  //   jest.spyOn(window.localStorage.__proto__, 'setItem');
+  //   window.localStorage.__proto__.setItem = jest.fn();
+
+  //   render(<Login />);
+
+  //   const usernameField = screen.getByLabelText(/Username/i);
+  //   const passwordField = screen.getByLabelText(/Password/i);
+  //   const submitButton = screen.getByRole('button', { name: /Login/i });
+
+  //   await act(async () => {
+  //     fireEvent.change(usernameField, { target: { value: 'testuser' } });
+  //     fireEvent.change(passwordField, { target: { value: 'password123' } });
+  //     fireEvent.click(submitButton);
+  //   });
+
+  //   expect(await screen.findByText(/Login successful!/i)).toBeInTheDocument();
+  //   expect(window.localStorage.setItem).toHaveBeenCalledWith('token', 'fake-token');
+  // });
+});
