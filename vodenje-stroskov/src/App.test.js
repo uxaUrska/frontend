@@ -3,7 +3,8 @@ import { render, screen } from '@testing-library/react';
 import App from './App';
 import Sidebar from './components/Sidebar';
 import TableComponent from './components/CostTracking';
-
+import Login from './components/Login';
+import axios from 'axios';
 
 // Test 1: Existing test (might fail if "Dobrodošli" isn't rendered)
 test('renders the application without crashing', () => {
@@ -116,3 +117,7 @@ test('CostTracking container has correct border radius', () => {
 
   expect(window.getComputedStyle(costTrackingContainer).borderRadius).toBe('8px');
 });
+
+
+//dodatna funkcionalnost
+

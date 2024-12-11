@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import SideBar from './components/Sidebar.jsx';
 import TableComponent from './components/CostTracking.jsx';
+import Login from './components/Login.jsx';
+
 
 function App() {
   return (
@@ -13,6 +15,7 @@ function App() {
 
               <SideBar></SideBar>
               <TableComponent></TableComponent>
+              <Login></Login>
 
         
       </header>
